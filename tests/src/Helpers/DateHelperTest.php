@@ -20,5 +20,6 @@ class DateHelperTest extends TestCase
         $this->assertFalse(DateHelper::isValidDateString('2016-02-31'));
         $this->assertFalse(DateHelper::isValidDateString('2016-99-31'));
         $this->assertFalse(DateHelper::isValidDateString('2016-99-31'));
+        $this->assertTrue(DateHelper::isValidDateString('02/11/2020', 'd/m/Y'));
     }
 }

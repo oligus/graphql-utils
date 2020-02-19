@@ -29,6 +29,7 @@ class Query extends ObjectType
                                 'id' => 1,
                                 'name' => 'Alfred',
                                 'date' => new DateTime('2020-04-15'),
+                                'dateFormat' => new DateTime('2020-01-05'),
                                 'dateTime' => new DateTime('2020-01-12 14:15:00')
                             ];
                          }

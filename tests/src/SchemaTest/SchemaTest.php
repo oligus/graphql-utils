@@ -22,6 +22,7 @@ class SchemaTest extends TestCase
     id
     name
     date
+    dateFormat
     dateTime
   }
 }

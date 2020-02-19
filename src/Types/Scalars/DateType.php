@@ -25,12 +25,24 @@ class DateType extends ScalarType
     /**
      * @var string
      */
-    public $description = 'The `Date` scalar type represents date in format "YYYY-mm-dd"';
+    public $description = 'The `Date` scalar type represents date in format "Y-m-d"';
 
     /**
      * @var string
      */
-    private $dateFormat = 'Y-m-d';
+    private $format = 'Y-m-d';
+
+    /**
+     * DateType constructor.
+     * @param array<string,string> $config
+     */
+    public function __construct(array $config = [])
+    {
+        $this->format = $config['format'] ?? 'Y-m-d';
+        $this->description = 'The `Date` scalar type represents date in format "' . $this->format . '"';
+
+        parent::__construct($config);
+    }
 
     /**
      * @param mixed $value
@@ -42,7 +54,7 @@ class DateType extends ScalarType
             throw new Error('Date is not an instance of DateTime, ' . Utils::printSafe($value));
         }
 
-        return $value->format($this->dateFormat);
+        return $value->format($this->format);
     }
 
     /**
@@ -52,8 +64,8 @@ class DateType extends ScalarType
      */
     public function parseValue($value): DateTime
     {
-        if (!DateHelper::isValidDateString($value)) {
-            throw new Error('Query error: Value is not a valid Date string (YYYY-mm-dd): ' . Utils::printSafe($value));
+        if (!DateHelper::isValidDateString($value, $this->format)) {
+            throw new Error('Query error: Value is not a valid Date string (' . $this->format . '): ' . Utils::printSafe($value));
         }
 
         return new DateTime($value);
@@ -73,8 +85,8 @@ class DateType extends ScalarType
             throw new Error('Query error: Can only parse strings got: ' . $valueNode->kind, [$valueNode]);
         }
 
-        if (!DateHelper::isValidDateString($valueNode->value)) {
-            throw new Error('Query error: Value is not a valid Date string (YYYY-mm-dd): ' . $valueNode->kind, [$valueNode]);
+        if (!DateHelper::isValidDateString($valueNode->value, $this->format)) {
+            throw new Error('Query error: Value is not a valid Date string (' . $this->format . '): ' . $valueNode->kind, [$valueNode]);
         }
 
         return new DateTime($valueNode->value);

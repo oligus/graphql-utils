@@ -4,8 +4,8 @@ namespace Tests\Schema\Types;
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
+use GraphQLUtils\Types\Registry;
 use GraphQLUtils\Types\Scalars\DateTimeType;
-use GraphQLUtils\Types\Scalars\DateType;
 use Exception;
 
 /**
@@ -30,7 +30,8 @@ class Record extends ObjectType
                 return [
                     'id' => Type::id(),
                     'name' => Type::string(),
-                    'date' => new DateType(),
+                    'date' => Registry::date(),
+                    'dateFormat' => Registry::date('d/m/Y'),
                     'dateTime' => new DateTimeType(),
 
                 ];

@@ -2,24 +2,17 @@
 
 namespace GraphQLUtils\Helpers;
 
+use DateTime;
+
 /**
  * Class DateHelper
  * @package GraphQLUtils\Helpers
  */
 class DateHelper
 {
-    public static function isValidDateString(string $date): bool
+    public static function isValidDateString(string $dateString, $format = 'Y-m-d'): bool
     {
-        $result = preg_split('/-/', $date);
-
-        if (count($result) !== 3) {
-            return false;
-        }
-
-        $year = (int)$result[0];
-        $month = (int)$result[1];
-        $day = (int)$result[2];
-
-        return checkdate($month, $day, $year);
+        $date = DateTime::createFromFormat($format, $dateString);
+        return $date && $date->format($format) === $dateString;
     }
 }
