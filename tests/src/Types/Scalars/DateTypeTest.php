@@ -120,7 +120,7 @@ class DateTypeTest extends TestCase
     public function testParseLiteralValueException()
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessage('Query error: Value is not a valid Date string (YYYY-mm-dd)');
+        $this->expectExceptionMessage('Query error: Value is not a valid Date string (Y-m-d)');
         $date = new DateType();
         $date->parseLiteral(new StringValueNode(['value' => 'test']));
     }

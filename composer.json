@@ -20,7 +20,10 @@
         "analyze-noop": "phan --no-progress-bar"
     },
     "require": {
-        "webonyx/graphql-php": "^0.13.8"
+        "ext-json": "*",
+        "webonyx/graphql-php": "^0.13.8",
+        "symfony/console": "^5.0",
+        "oligus/schema": "^1.0@beta"
     },
     "require-dev": {
         "ext-json": "*",
@@ -44,5 +47,7 @@
         "classmap": [
             "tests/src"
         ]
-    }
+    },
+    "bin": ["bin/graphql"],
+    "minimum-stability": "beta"
 }
