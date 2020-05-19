@@ -6,23 +6,50 @@
 
 Utils for use with [webonyx/graphql-php](https://github.com/webonyx/graphql-php)
 
-## Registry
+## Type Registry
 
-You can use the registry to keep track of
-
-## Scalars
+Scalars are exposed as static methods of GraphQLUtils\TypeRegistry class:
 
 ```php
-use GraphQLUtils\Types\Registry;
 
-// Scalar types:
-Registry::date();  // DateType
+<?php
+use GraphQLUtils\TypeRegistry;
+
+// Built-in Scalar types (wrapped from graphql):
+TypeRegistry::string();     // String type
+TypeRegistry::int();        // Int type
+TypeRegistry::float();      // Float type
+TypeRegistry::boolean();    // Boolean type
+TypeRegistry::id();         // ID type
+
+// Custom Scalar types:
+TypeRegistry::uuid();       // UUID type
+TypeRegistry::date();       // Date type
+TypeRegistry::dateTime();   // DateTime (Atom) type
 ```
 
-### DateType
+## Custom Types
 
-Set field to date type
-```php
-'date' => Registry::date();
-```
+#### UUID Type
+
+`TypeRegistry::uuid()`
+
+Validates and returns a UUID object of type [ramsey/uuid](https://github.com/ramsey/uuid)
+
+#### Date Type
+
+`TypeRegistry::date($format)`
+
+Validates and returns a `DateTime` object according to format of your own choosing. 
+You can only initialize the date type with format once. Initializing the date with a spcific format e.g.`TypeRegistry::date('d/m/Y')`
+will mean all subsequent requests will be in the same format.
+
+Default format: `Y-m-d`
+
+
+#### Date Time Type
+
+Date time in `ATOM` format, RFC3339.
+
+Format: `Y-m-d\TH:i:sP`
 
