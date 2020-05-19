@@ -20,10 +20,11 @@
         "analyze-noop": "phan --no-progress-bar"
     },
     "require": {
-        "ext-json": "*",
         "webonyx/graphql-php": "^0.13.8",
         "symfony/console": "^5.0",
-        "oligus/schema": "^1.0@beta"
+        "oligus/schema": "^1.0@beta",
+        "moneyphp/money": "^3.3",
+        "ramsey/uuid": "^4.0"
     },
     "require-dev": {
         "ext-json": "*",

@@ -2,11 +2,9 @@
 
 namespace Tests\Schema\Types;
 
-use GraphQL\Type\Definition\ObjectType;
-use GraphQL\Type\Definition\Type;
-use GraphQLUtils\Types\Registry;
-use GraphQLUtils\Types\Scalars\DateTimeType;
 use Exception;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQLUtils\TypeRegistry;
 
 /**
  * Class Ado
@@ -28,12 +26,12 @@ class Record extends ObjectType
              */
             'fields' => function (): array {
                 return [
-                    'id' => Type::id(),
-                    'name' => Type::string(),
-                    'date' => Registry::date(),
-                    'dateFormat' => Registry::date('d/m/Y'),
-                    'dateTime' => new DateTimeType(),
-
+                    'id' => TypeRegistry::id(),
+                    'name' => TypeRegistry::string(),
+                    'date' => TypeRegistry::date(),
+                    'dateFormat' => TypeRegistry::date('d/m/Y'),
+                    'dateTime' => TypeRegistry::dateTime(),
+                    'uuid' => TypeRegistry::uuid(),
                 ];
             }
         ];

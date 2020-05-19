@@ -23,6 +23,7 @@ class SchemaTest extends TestCase
     name
     date
     dateTime
+    uuid
   }
 }
 EOF;
