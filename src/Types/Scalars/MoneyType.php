@@ -2,68 +2,67 @@
 
 namespace GraphQLUtils\Types\Scalars;
 
+use Money\Money;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils;
 use GraphQL\Error\Error;
 use GraphQL\Language\AST\Node;
-use Ramsey\Uuid\UuidInterface;
-use Ramsey\Uuid\Uuid;
-use Exception;
 
 /**
- * Class Uuid
+ * Class MoneyType
  * @package GraphQLUtils\Types\Scalars
  */
-class UuidType extends ScalarType
+class MoneyType extends ScalarType
 {
     /**
      * @var string
      */
-    public $name = 'UUID';
+    public $name = 'Money';
 
     /**
      * @var string
      */
-    public $description = 'The `UUID` scalar type represents a universally unique identifier (UUID), according to RFC 4122.';
+    public $description = 'The `Money` scalar type represents the lowest denominator of a currency. Value here is a subunit that is a fraction of the main currency unit (base).';
 
     /**
      * @param mixed $value
      * @throws InvariantViolation
-     * @throws Error
      */
     public function serialize($value): string
     {
-        if (!$value instanceof Uuid) {
-            throw new InvariantViolation('Not an instance type of UUID (' . Utils::printSafe($value) . ')');
+        if (!$value instanceof Money) {
+            throw new InvariantViolation('Not an instance of Money (' . Utils::printSafe($value) . ')');
         }
 
-        return $value->toString();
+        return $value->getAmount();
     }
 
     /**
-     * @param mixed $value
-     * @throws Exception
+     * @throws Error
      */
-    public function parseValue($value): UuidInterface
+    public function parseValue($value): Money
     {
-        if (!Uuid::isValid($value)) {
-            throw new Error('Query error: Value is not a valid UUID string: ' . Utils::printSafe($value));
+        if (!is_string($value)) {
+            throw new Error('Query error: Can only parse strings got: ' . Utils::printSafe($value));
         }
 
-        return Uuid::fromString($value);
+        if (empty($value) && is_string($value)) {
+            throw new Error('Query error: Can only parse non empty strings got: ' . Utils::printSafe($value));
+        }
+
+        return Money::SEK($value);
     }
 
     /**
      * @param Node $valueNode
      * @param array<mixed>|null $variables
      * @throws Error
-     * @throws Exception
      * @phan-suppress PhanUnusedPublicMethodParameter,PhanUndeclaredProperty
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function parseLiteral($valueNode, ?array $variables = null): UuidInterface
+    public function parseLiteral($valueNode, ?array $variables = null): Money
     {
         if (!$valueNode instanceof Node) {
             throw new Error('Query error: Unknown node type');
@@ -73,10 +72,6 @@ class UuidType extends ScalarType
             throw new Error('Query error: Can only parse strings got: ' . $valueNode->kind, [$valueNode]);
         }
 
-        if (!Uuid::isValid($valueNode->value)) {
-            throw new Error('Query error: Value is not a valid UUID string: ' . $valueNode->value, [$valueNode]);
-        }
-
-        return Uuid::fromString($valueNode->value);
+        return Money::SEK($valueNode->value);
     }
 }

@@ -32,6 +32,7 @@ class Record extends ObjectType
                     'dateFormat' => TypeRegistry::date('d/m/Y'),
                     'dateTime' => TypeRegistry::dateTime(),
                     'uuid' => TypeRegistry::uuid(),
+                    'money' => TypeRegistry::money(),
                 ];
             }
         ];

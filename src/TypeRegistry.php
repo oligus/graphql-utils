@@ -6,6 +6,7 @@ use Exception;
 use GraphQL\Type\Definition;
 use GraphQLUtils\Types\Scalars\DateTimeType;
 use GraphQLUtils\Types\Scalars\DateType;
+use GraphQLUtils\Types\Scalars\MoneyType;
 use GraphQLUtils\Types\Scalars\UuidType;
 
 /**
@@ -25,6 +26,7 @@ use GraphQLUtils\Types\Scalars\UuidType;
  * @method static self date(?string $format = null)
  * @method static self dateTime
  * @method static self uuid
+ * @method static self money
  */
 class TypeRegistry
 {
@@ -53,7 +55,7 @@ class TypeRegistry
     public static function set(string $key, Definition\Type $type): void
     {
         if (array_key_exists($key, self::$types)) {
-            throw new Exception('Unknown type: ' . $key);
+            throw new Exception('Type already registered: ' . $key);
         }
 
         self::$types[$key] = $type;
@@ -107,6 +109,9 @@ class TypeRegistry
             case 'uuid':
                 self::$types[$name] = new UuidType();
                 break;
+            case 'money':
+                self::$types[$name] = new MoneyType();
+                break;
             default:
                 throw new Exception('Unknown type: ' . $name);
         }
@@ -118,6 +123,7 @@ class TypeRegistry
      * Disabled intentionally
      * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
      * @phan-suppress PhanEmptyPrivateMethod
+     * @codeCoverageIgnore
      */
     private function __construct()
     {
@@ -127,6 +133,7 @@ class TypeRegistry
      * Disabled intentionally
      * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
      * @phan-suppress PhanEmptyPrivateMethod
+     * @codeCoverageIgnore
      */
     private function __clone()
     {
@@ -136,6 +143,7 @@ class TypeRegistry
      * Disabled intentionally
      * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
      * @phan-suppress PhanEmptyPrivateMethod
+     * @codeCoverageIgnore
      */
     private function __wakeup()
     {

@@ -7,29 +7,17 @@ use Spatie\Snapshots\MatchesSnapshots;
 use Tests\Schema\GraphQL;
 
 /**
- * Class SchemaTest
- * @package Tests\Types\Scalars
+ * Class MoneyTypeTest
+ * @package Tests\SchemaTest
  */
-class SchemaTest extends TestCase
+class MoneyTypeTest extends TestCase
 {
     use MatchesSnapshots;
 
-    public function testRecord()
+    public function testDate()
     {
-        $query = <<< EOF
-{
-  record {
-    id
-    name
-    date
-    dateTime
-    uuid
-    money
-  }
-}
-EOF;
+        $query = '{ record { money } }';
         $result = GraphQL::query($query);
-
         $this->assertMatchesJsonSnapshot($result);
     }
 }

@@ -46,10 +46,15 @@ will mean all subsequent requests will be in the same format.
 
 Default format: `Y-m-d`
 
-
 #### Date Time Type
 
 Date time in `ATOM` format, RFC3339.
 
 Format: `Y-m-d\TH:i:sP`
+
+#### Money Type
+
+`TypeRegistry::money()`
+
+Validates and returns instance of Money ([moneyphp/money](https://github.com/moneyphp/money)), a PHP implementation of the Money pattern.
 

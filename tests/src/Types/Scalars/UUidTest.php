@@ -2,6 +2,7 @@
 
 namespace Tests\Types\Scalars;
 
+use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\IntValueNode;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Error\Error;
@@ -33,8 +34,8 @@ class UUidTest extends TestCase
      */
     public function testSerializeException()
     {
-        $this->expectException(Error::class);
-        $this->expectExceptionMessage('Query error: Value is not a valid UUID string: test');
+        $this->expectException(InvariantViolation::class);
+        $this->expectExceptionMessage('Not an instance type of UUID (test)');
         $uuidType = new UuidType();
         $uuidType->serialize('test');
     }
