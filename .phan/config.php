@@ -309,6 +309,7 @@ return [
         'src',
         'vendor/webonyx/graphql-php',
         'vendor/ramsey/uuid',
+        'vendor/moneyphp/money'
     ],
 
     // List of case-insensitive file extensions supported by Phan.

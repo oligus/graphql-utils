@@ -14,6 +14,16 @@ use Exception;
  */
 class TypeRegistryTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
+    public function testMoney()
+    {
+        $moneyType = TypeRegistry::money();
+        $this->assertInstanceOf(Types\Scalars\MoneyType::class, $moneyType);
+        $this->assertInstanceOf(Types\Scalars\MoneyType::class, TypeRegistry::get('money'));
+    }
+
     public function testDateTime()
     {
         $dateTimeType = TypeRegistry::dateTime();
@@ -53,4 +63,25 @@ class TypeRegistryTest extends TestCase
         $this->expectExceptionMessage('Unknown type: unknown');
         TypeRegistry::get('unknown');
     }
+
+    public function testGetException()
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Unknown type: test');
+        TypeRegistry::get('test');
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testSet()
+    {
+        TypeRegistry::set('test', new Types\Scalars\MoneyType());
+        $this->assertInstanceOf(Types\Scalars\MoneyType::class, TypeRegistry::get('test'));
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Type already registered: test');
+        TypeRegistry::set('test', new Types\Scalars\MoneyType());
+    }
+
 }
