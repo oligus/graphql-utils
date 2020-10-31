@@ -12,10 +12,10 @@ use Ramsey\Uuid\Uuid;
 use Exception;
 
 /**
- * Class UUidTest
+ * Class UUidTypeTest
  * @package Tests\Types\Scalars
  */
-class UUidTest extends TestCase
+class UUidTypeTest extends TestCase
 {
     /**
      * @throws Exception

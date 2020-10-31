@@ -7,32 +7,17 @@ use Spatie\Snapshots\MatchesSnapshots;
 use Tests\Schema\GraphQL;
 
 /**
- * Class SchemaTest
- * @package Tests\Types\Scalars
+ * Class MoneyTypeTest
+ * @package Tests\SchemaTest
  */
-class SchemaTest extends TestCase
+class AmountTypeTest extends TestCase
 {
     use MatchesSnapshots;
 
-    public function testRecord()
+    public function testDate()
     {
-        $query = <<< EOF
-{
-  record {
-    id
-    name
-    date
-    dateTime
-    uuid
-    money
-    amount {
-      sum
-    }
-  }
-}
-EOF;
+        $query = '{ record { amount { sum currency formatted(locale:"sv_SE") } } }';
         $result = GraphQL::query($query);
-
         $this->assertMatchesJsonSnapshot($result);
     }
 }

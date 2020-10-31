@@ -10,7 +10,7 @@ use DateTime;
  */
 class DateHelper
 {
-    public static function isValidDateString(string $dateString, $format = 'Y-m-d'): bool
+    public static function isValidDateString(string $dateString, string $format = 'Y-m-d'): bool
     {
         $date = DateTime::createFromFormat($format, $dateString);
         return $date && $date->format($format) === $dateString;

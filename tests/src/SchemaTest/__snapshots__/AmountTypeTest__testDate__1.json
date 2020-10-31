@@ -1,0 +1,11 @@
+{
+    "data": {
+        "record": {
+            "amount": {
+                "sum": "19900",
+                "currency": "SEK",
+                "formatted": "199,00\u00a0kr"
+            }
+        }
+    }
+}
