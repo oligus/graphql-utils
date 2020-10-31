@@ -35,7 +35,7 @@ class UuidType extends ScalarType
      */
     public function serialize($value): string
     {
-        if (!$value instanceof Uuid) {
+        if (!$value instanceof UuidInterface) {
             throw new InvariantViolation('Not an instance type of UUID (' . Utils::printSafe($value) . ')');
         }
 

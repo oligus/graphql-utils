@@ -33,6 +33,7 @@ class Record extends ObjectType
                     'dateTime' => TypeRegistry::dateTime(),
                     'uuid' => TypeRegistry::uuid(),
                     'money' => TypeRegistry::money(),
+                    'amount' => TypeRegistry::amount()
                 ];
             }
         ];

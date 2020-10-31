@@ -6,9 +6,16 @@
 
 Utils for use with [webonyx/graphql-php](https://github.com/webonyx/graphql-php)
 
+
+## Quick start
+
+`composer require oligus/graphql-utils`
+
+### sdf
+
 ## Type Registry
 
-Scalars are exposed as static methods of GraphQLUtils\TypeRegistry class:
+Scalars exposed as static methods of GraphQLUtils\TypeRegistry class:
 
 ```php
 

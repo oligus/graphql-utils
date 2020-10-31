@@ -4,6 +4,7 @@ namespace GraphQLUtils;
 
 use Exception;
 use GraphQL\Type\Definition;
+use GraphQLUtils\Types\Objects\AmountType;
 use GraphQLUtils\Types\Scalars\DateTimeType;
 use GraphQLUtils\Types\Scalars\DateType;
 use GraphQLUtils\Types\Scalars\MoneyType;
@@ -27,6 +28,7 @@ use GraphQLUtils\Types\Scalars\UuidType;
  * @method static self dateTime
  * @method static self uuid
  * @method static self money
+ * @method static self amount
  */
 class TypeRegistry
 {
@@ -111,6 +113,9 @@ class TypeRegistry
                 break;
             case 'money':
                 self::$types[$name] = new MoneyType();
+                break;
+            case 'amount':
+                self::$types[$name] = new AmountType();
                 break;
             default:
                 throw new Exception('Unknown type: ' . $name);
